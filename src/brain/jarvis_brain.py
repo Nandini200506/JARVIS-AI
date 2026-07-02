@@ -17,6 +17,7 @@ class JarvisBrain:
         """
         Initialize all modules.
         """
+        self.default_city = "Lucknow"
 
         self.weather = WeatherAPI()
 
@@ -62,3 +63,44 @@ class JarvisBrain:
             self.speaker.add_to_queue(title)
 
         self.speaker.speak_queue()
+
+
+
+    def get_weather(self, city: str = "Lucknow"):
+        """
+        Fetch weather data from Weather API.
+        """
+       
+        data = self.weather.get_weather(city)
+
+        if not data:
+            return None
+
+        try:
+            temp = data["main"]["temp"]
+            condition = data["weather"][0]["description"]
+
+            return {
+                "temp": temp,
+                "condition": condition,
+                "city": city
+            }
+
+        except Exception:
+            return None
+    
+
+    def speak_weather(self, city: str = "Lucknow"):
+        """
+        Speak weather information.
+        """
+
+        data = self.get_weather(city)
+
+        if not data:
+            self.speaker.speak("Sorry, I could not fetch weather data.")
+            return
+
+        response = f"The temperature in {data['city']} is {data['temp']} degrees with {data['condition']}"
+
+        self.speaker.speak(response)

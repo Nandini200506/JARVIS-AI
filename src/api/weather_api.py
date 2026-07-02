@@ -11,21 +11,13 @@ class WeatherAPI:
         self.api_key = os.getenv("WEATHER_API_KEY")
         self.base_url = "https://api.openweathermap.org/data/2.5/weather"
 
-    def get_weather(self, city: str) -> dict | None:
+    def get_weather(self, city: str = "Lucknow"):
         """
-        Fetch weather information for a given city.
-
-        Args:
-            city (str): Name of the city.
-
-        Returns:
-            dict | None:
-                Weather data if successful,
-                otherwise None.
+        Fetch weather data from OpenWeather API.
         """
 
-        if not city.strip():
-            print("Error: City name cannot be empty.")
+        if not self.api_key:
+            print("Error: WEATHER_API_KEY not found.")
             return None
 
         params = {
@@ -41,24 +33,15 @@ class WeatherAPI:
                 params=params
             )
 
+            
+
             response.raise_for_status()
 
-            data = response.json()
-
-            weather_data = {
-                "city": data["name"],
-                "temperature": data["main"]["temp"],
-                "humidity": data["main"]["humidity"],
-                "pressure": data["main"]["pressure"],
-                "description": data["weather"][0]["description"],
-                "wind_speed": data["wind"]["speed"]
-            }
-
-            return weather_data
+            return response.json()
 
         except requests.exceptions.RequestException as error:
 
-            print(f"Failed to fetch weather data: {error}")
+            print(f"Weather API Error: {error}")
 
             return None
 
