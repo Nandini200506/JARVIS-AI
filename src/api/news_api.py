@@ -1,47 +1,75 @@
 import os
 import requests
+
 from dotenv import load_dotenv
 
-# Load environment variables from the .env file
-load_dotenv()
 
-# Read the NewsAPI key from the environment
-api_key = os.getenv("NEWS_API_KEY")
+class NewsAPI:
+    """
+    Handles fetching news headlines from NewsAPI.
+    """
 
-# NewsAPI endpoint
-url = "https://newsapi.org/v2/top-headlines"
+    def __init__(self):
+        load_dotenv()
 
-# Query parameters
-params = {
-    "country": "us",      # Using 'us' because it returned news successfully
-    "pageSize": 5,        # Fetch only 5 articles
-    "apiKey": api_key
-}
+        self.api_key = os.getenv("NEWS_API_KEY")
 
-# Send GET request to NewsAPI
-response = requests.get(url, params=params)
+        self.base_url = "https://newsapi.org/v2/top-headlines"
 
-# Check whether the request was successful
-if response.status_code == 200:
+    def get_top_headlines(
+        self,
+        country="us",
+        category=None,
+        page_size=5
+    ):
 
-    # Convert JSON response into a Python dictionary
-    data = response.json()
+        if not self.api_key:
+            print("NEWS_API_KEY not found.")
+            return None
 
-    # Get the list of articles
-    articles = data["articles"]
+        params = {
+            "country": country,
+            "pageSize": page_size,
+            "apiKey": self.api_key
+        }
 
-    print("\n========== TOP HEADLINES ==========\n")
+        if category:
+            params["category"] = category
 
-    # Print each headline
-    for index, article in enumerate(articles, start=1):
-        print(f"{index}. {article['title']}")
-        print(f"Source : {article['source']['name']}")
-        print(f"Author : {article['author']}")
-        print(f"Published : {article['publishedAt']}")
-        print(f"URL : {article['url']}")
-        print("-" * 80)
+        try:
 
-else:
-    print("Request Failed!")
-    print("Status Code:", response.status_code)
-    print(response.text)
+            response = requests.get(
+                self.base_url,
+                params=params,
+                timeout=10
+            )
+
+            response.raise_for_status()
+
+            data = response.json()
+
+            return data.get("articles", [])
+
+        except requests.exceptions.RequestException as e:
+
+            print(f"Error: {e}")
+
+            return None
+
+
+if __name__ == "__main__":
+
+    news = NewsAPI()
+
+    articles = news.get_top_headlines()
+
+    if articles:
+
+        print("\n========== TOP HEADLINES ==========\n")
+
+        for index, article in enumerate(articles, start=1):
+
+            print(f"{index}. {article['title']}")
+            print(f"Source : {article['source']['name']}")
+            print(f"URL : {article['url']}")
+            print("-" * 80)
