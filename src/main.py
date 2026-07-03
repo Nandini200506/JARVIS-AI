@@ -1,32 +1,15 @@
 from speech.listener import SpeechListener
 from router.command_router import CommandRouter
-
-
-def detect_intent(command: str) -> str:
-    """
-    Detect the user's intent based on the spoken command.
-    """
-
-    command = command.lower()
-
-    if "news" in command:
-        return "NEWS"
-
-    elif "weather" in command:
-        return "WEATHER"
-
-    elif command in ["exit", "quit", "stop", "bye"]:
-        return "EXIT"
-
-    return "UNKNOWN"
+from nlp.intent_detector import IntentDetector
 
 
 def main():
     """
-    Main function of JARVIS AI.
+    Main entry point of JARVIS AI.
     """
 
     listener = SpeechListener()
+    detector = IntentDetector()
     router = CommandRouter()
 
     print("🤖 JARVIS IS NOW ACTIVE")
@@ -40,7 +23,7 @@ def main():
 
         print(f"RAW COMMAND: {command}")
 
-        intent = detect_intent(command)
+        intent = detector.detect_intent(command)
 
         print(f"INTENT: {intent}")
 
