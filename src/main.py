@@ -1,62 +1,54 @@
 from speech.listener import SpeechListener
-from brain.jarvis_brain import JarvisBrain
+from router.command_router import CommandRouter
 
 
-def get_intent(command: str):
+def detect_intent(command: str) -> str:
+    """
+    Detect the user's intent based on the spoken command.
+    """
 
     command = command.lower()
 
-    # NEWS INTENT
-    if any(word in command for word in ["news", "headlines", "updates"]):
+    if "news" in command:
         return "NEWS"
 
-    # WEATHER INTENT
-    elif any(word in command for word in ["weather", "temperature", "climate"]):
+    elif "weather" in command:
         return "WEATHER"
 
-    # EXIT INTENT
-    elif any(word in command for word in ["exit", "stop", "shutdown", "bye"]):
+    elif command in ["exit", "quit", "stop", "bye"]:
         return "EXIT"
 
-    else:
-        return "UNKNOWN"
+    return "UNKNOWN"
 
 
 def main():
+    """
+    Main function of JARVIS AI.
+    """
 
     listener = SpeechListener()
-    brain = JarvisBrain()
+    router = CommandRouter()
 
-    print("🤖 JARVIS SMART MODE ACTIVE")
+    print("🤖 JARVIS IS NOW ACTIVE")
 
     while True:
 
         command = listener.listen()
 
-        if command is None:
+        if not command:
             continue
 
-        print("RAW COMMAND:", command)
+        print(f"RAW COMMAND: {command}")
 
-        intent = get_intent(command)
+        intent = detect_intent(command)
 
-        print("INTENT:", intent)
+        print(f"INTENT: {intent}")
 
-        # ROUTING SYSTEM
-        if intent == "NEWS":
-            brain.speak_news()
+        should_continue = router.route(intent, command)
 
-        elif intent == "WEATHER":
-            brain.speak_weather()
-
-    
-
-        elif intent == "EXIT":
+        if not should_continue:
             print("JARVIS SHUTTING DOWN")
             break
-
-        else:
-            print("Sorry, I didn't understand that command.")
 
 
 if __name__ == "__main__":
