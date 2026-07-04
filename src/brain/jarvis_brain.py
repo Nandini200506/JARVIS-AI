@@ -2,6 +2,7 @@ from api.weather_api import WeatherAPI
 from api.news_api import NewsAPI
 from automation.desktop_automation import DesktopAutomation
 from tts.speaker import speak
+from automation.app_launcher import launch_application
 
 
 class JarvisBrain:
@@ -101,3 +102,16 @@ class JarvisBrain:
         speak("Opening Calculator")
 
         self.desktop.open_calculator()
+    
+    def open_application(self, app_name):
+        """
+        Opens an application using the Smart Application Launcher.
+        """
+
+        if launch_application(app_name):
+
+            speak(f"Opening {app_name}")
+
+        else:
+
+            speak(f"Sorry, I couldn't open {app_name}")

@@ -30,13 +30,11 @@ class CommandRouter:
 
         elif intent == "OPEN":
 
-            if "notepad" in command:
+            app_name = self.entity_extractor.extract_application(command)
 
-                self.brain.open_notepad()
+            if app_name:
 
-            elif "calculator" in command:
-
-                self.brain.open_calculator()
+                self.brain.open_application(app_name)
 
             else:
 

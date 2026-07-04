@@ -1,17 +1,6 @@
 class EntityExtractor:
-    """
-    Extracts important entities from user commands.
-
-    Examples:
-        weather in delhi      -> Delhi
-        weather in mumbai     -> Mumbai
-        weather in new york   -> New York
-    """
 
     def extract_city(self, command: str) -> str:
-        """
-        Extract city name from a weather command.
-        """
 
         command = command.lower().strip()
 
@@ -22,5 +11,27 @@ class EntityExtractor:
             if city:
                 return city.title()
 
-        # Default city
         return "Lucknow"
+
+
+    def extract_application(self, command: str):
+        """
+        Extract application name from an OPEN command.
+        """
+
+        command = command.lower()
+
+        applications = [
+            "notepad",
+            "calculator",
+            "paint",
+            "chrome",
+            "vscode",
+            "spotify"
+        ]
+
+        for app in applications:
+            if app in command:
+                return app
+
+        return None
