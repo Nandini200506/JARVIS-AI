@@ -37,6 +37,13 @@ class IntentDetector:
                 "weather in"
             ],
 
+            "OPEN": [
+                "open",
+                "launch",
+                "start",
+                "run"
+            ],
+
             "EXIT": [
                 "exit",
                 "quit",

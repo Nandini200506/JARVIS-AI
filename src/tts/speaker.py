@@ -1,43 +1,32 @@
 import pyttsx3
 
+# Initialize the TTS engine only once
+engine = pyttsx3.init()
 
-class Speaker:
+# Set speaking rate
+engine.setProperty("rate", 170)
+
+# Set volume (0.0 to 1.0)
+engine.setProperty("volume", 1.0)
+
+# Select a voice (usually female on Windows)
+voices = engine.getProperty("voices")
+
+if len(voices) > 1:
+    engine.setProperty("voice", voices[1].id)
+else:
+    engine.setProperty("voice", voices[0].id)
+
+
+def speak(text):
     """
-    Handles Text-to-Speech for JARVIS.
+    Convert text to speech.
     """
 
-    def __init__(self):
+    if not text:
+        return
 
-        self.engine = pyttsx3.init()
+    print(f"JARVIS: {text}")
 
-        self.engine.setProperty("rate", 170)
-
-        self.engine.setProperty("volume", 1.0)
-
-    def add_to_queue(self, text: str):
-        """
-        Add text to the speech queue.
-        """
-
-        if not text:
-            return
-
-        print(f"JARVIS: {text}")
-
-        self.engine.say(text)
-
-    def speak_queue(self):
-        """
-        Speak everything in the queue.
-        """
-
-        self.engine.runAndWait()
-
-    def speak(self, text: str):
-        """
-        Speak a single sentence.
-        """
-
-        self.add_to_queue(text)
-
-        self.speak_queue()
+    engine.say(text)
+    engine.runAndWait()

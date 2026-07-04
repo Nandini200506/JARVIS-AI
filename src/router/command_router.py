@@ -1,4 +1,6 @@
 from brain.jarvis_brain import JarvisBrain
+from nlp.entity_extractor import EntityExtractor
+from tts.speaker import speak
 
 
 class CommandRouter:
@@ -8,19 +10,12 @@ class CommandRouter:
     """
 
     def __init__(self):
-        """
-        Initialize the router.
-        """
-
         self.brain = JarvisBrain()
+        self.entity_extractor = EntityExtractor()
 
     def route(self, intent: str, command: str):
         """
         Route the detected intent.
-
-        Args:
-            intent (str): Detected intent.
-            command (str): Original voice command.
         """
 
         if intent == "NEWS":
@@ -29,23 +24,32 @@ class CommandRouter:
 
         elif intent == "WEATHER":
 
-            city = self.brain.default_city
-
-            if "weather in" in command:
-                city = command.split("weather in")[-1].strip()
+            city = self.entity_extractor.extract_city(command)
 
             self.brain.speak_weather(city)
 
+        elif intent == "OPEN":
+
+            if "notepad" in command:
+
+                self.brain.open_notepad()
+
+            elif "calculator" in command:
+
+                self.brain.open_calculator()
+
+            else:
+
+                speak("I don't know that application.")
+
         elif intent == "EXIT":
 
-            self.brain.speaker.speak("Goodbye!")
+            speak("Goodbye!")
 
             return False
 
         else:
 
-            self.brain.speaker.speak(
-                "Sorry, I don't understand that command."
-            )
+            speak("Sorry, I don't understand that command.")
 
         return True
