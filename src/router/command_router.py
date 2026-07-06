@@ -30,6 +30,7 @@ class CommandRouter:
 
         elif intent == "OPEN":
 
+            # Check desktop applications first
             app_name = self.entity_extractor.extract_application(command)
 
             if app_name:
@@ -38,7 +39,16 @@ class CommandRouter:
 
             else:
 
-                speak("I don't know that application.")
+                # Check websites
+                website_name = self.entity_extractor.extract_website(command)
+
+                if website_name:
+
+                    self.brain.open_website(website_name)
+
+                else:
+
+                    speak("I don't know that application or website.")
 
         elif intent == "EXIT":
 

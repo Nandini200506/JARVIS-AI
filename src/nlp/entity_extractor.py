@@ -21,17 +21,46 @@ class EntityExtractor:
 
         command = command.lower()
 
-        applications = [
-            "notepad",
-            "calculator",
-            "paint",
-            "chrome",
-            "vscode",
-            "spotify"
-        ]
+        application_aliases = {
+            "notepad": "notepad",
+            "calculator": "calculator",
+            "calc": "calculator",
+            "paint": "paint",
+            "chrome": "chrome",
+            "google chrome": "chrome",
+            "vscode": "vscode",
+            "vs code": "vscode",
+            "visual studio code": "vscode",
+            "spotify": "spotify"
+        }
 
-        for app in applications:
-            if app in command:
+        for alias, app in application_aliases.items():
+            if alias in command:
                 return app
+
+        return None
+    def extract_website(self, command: str):
+        """
+        Extract website name from an OPEN command.
+        """
+        command = command.lower()
+
+        website_aliases = {
+            "google": "google",
+            "youtube": "youtube",
+            "github": "github",
+            "git hub": "github",
+            "gmail": "gmail",
+            "chatgpt": "chatgpt",
+            "chat gpt": "chatgpt",
+            "linkedin": "linkedin",
+            "linked in": "linkedin",
+            "stackoverflow": "stackoverflow",
+            "stack overflow": "stackoverflow"
+        }
+
+        for alias, website in website_aliases.items():
+            if alias in command:
+                return website
 
         return None

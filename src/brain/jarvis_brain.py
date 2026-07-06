@@ -3,6 +3,7 @@ from api.news_api import NewsAPI
 from automation.desktop_automation import DesktopAutomation
 from tts.speaker import speak
 from automation.app_launcher import launch_application
+from automation.website_launcher import launch_website
 
 
 class JarvisBrain:
@@ -115,3 +116,16 @@ class JarvisBrain:
         else:
 
             speak(f"Sorry, I couldn't open {app_name}")
+    
+    def open_website(self, website_name):
+        """
+        Opens a website in the default browser.
+        """
+
+        if launch_website(website_name):
+
+            speak(f"Opening {website_name}")
+
+        else:
+
+            speak(f"Sorry, I couldn't open {website_name}")
