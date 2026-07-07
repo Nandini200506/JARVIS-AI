@@ -4,7 +4,7 @@ from automation.desktop_automation import DesktopAutomation
 from tts.speaker import speak
 from automation.app_launcher import launch_application
 from automation.website_launcher import launch_website
-
+from automation.file_launcher import open_folder as launch_folder
 
 class JarvisBrain:
     """
@@ -129,3 +129,17 @@ class JarvisBrain:
         else:
 
             speak(f"Sorry, I couldn't open {website_name}")
+        
+
+    def open_folder(self, folder_name):
+        """
+        Opens a folder from the Smart File Launcher.
+        """
+
+        if launch_folder(folder_name):
+
+            speak(f"Opening {folder_name}")
+
+        else:
+
+            speak(f"Sorry, I couldn't open {folder_name}")

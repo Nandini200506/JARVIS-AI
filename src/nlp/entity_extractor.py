@@ -64,3 +64,30 @@ class EntityExtractor:
                 return website
 
         return None
+    def extract_folder(self, command: str):
+        """
+        Extract folder name from an OPEN command.
+        """
+
+        command = command.lower()
+
+        folder_aliases = {
+            "desktop": "desktop",
+            "downloads": "downloads",
+            "download": "downloads",
+            "documents": "documents",
+            "document": "documents",
+            "pictures": "pictures",
+            "picture": "pictures",
+            "photos": "pictures",
+            "music": "music",
+            "songs": "music",
+            "videos": "videos",
+            "video": "videos"
+        }
+
+        for alias, folder in folder_aliases.items():
+            if alias in command:
+                return folder
+
+        return None
