@@ -44,6 +44,14 @@ class IntentDetector:
                 "run"
             ],
 
+            "SEARCH": [
+                "search",
+                "google",
+                "look up",
+                "find",
+                "search for"
+            ],
+
             "EXIT": [
                 "exit",
                 "quit",

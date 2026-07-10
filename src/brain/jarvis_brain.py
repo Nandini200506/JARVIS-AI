@@ -5,6 +5,7 @@ from tts.speaker import speak
 from automation.app_launcher import launch_application
 from automation.website_launcher import launch_website
 from automation.file_launcher import open_folder as launch_folder
+from automation.search_launcher import search_google as launch_search
 
 class JarvisBrain:
     """
@@ -143,3 +144,16 @@ class JarvisBrain:
         else:
 
             speak(f"Sorry, I couldn't open {folder_name}")
+
+    def search_google(self, query):
+            """
+            Searches Google for the given query.
+            """
+
+            if launch_search(query):
+
+                speak(f"Searching Google for {query}")
+
+            else:
+
+                speak("Sorry, I couldn't perform the search.")

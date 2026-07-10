@@ -59,6 +59,18 @@ class CommandRouter:
 
                         speak("I don't know that application, website, or folder.")
 
+        elif intent == "SEARCH":
+
+            query = self.entity_extractor.extract_search_query(command)
+
+            if query:
+
+                self.brain.search_google(query)
+
+            else:
+
+                speak("What would you like me to search for?")
+
         elif intent == "EXIT":
 
             speak("Goodbye!")

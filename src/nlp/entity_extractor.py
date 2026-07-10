@@ -91,3 +91,30 @@ class EntityExtractor:
                 return folder
 
         return None
+    
+
+    def extract_search_query(self, command: str):
+            """
+            Extract search query from a SEARCH command.
+            """
+
+            command = command.lower().strip()
+
+            search_keywords = [
+                "search for",
+                "search",
+                "find",
+                "look up",
+                "google"
+            ]
+
+            for keyword in search_keywords:
+
+                if keyword in command:
+
+                    query = command.split(keyword, 1)[1].strip()
+
+                    if query:
+                        return query
+
+            return None
