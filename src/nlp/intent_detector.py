@@ -51,7 +51,29 @@ class IntentDetector:
                 "find",
                 "search for"
             ],
+            "TIME": [
+                "time",
+                "current time",
+                "what time is it",
+                "tell me the time",
+                "time now"
+            ],
+            "DATE": [
+                "date",
+                "today's date",
+                "today date",
+                "current date",
+                "what is today's date",
+                "tell me today's date"
+            ],
 
+            "DAY": [
+                "day",
+                "today's day",
+                "what day is today",
+                "which day is today",
+                "current day"
+            ],
             "EXIT": [
                 "exit",
                 "quit",

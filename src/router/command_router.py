@@ -70,6 +70,18 @@ class CommandRouter:
             else:
 
                 speak("What would you like me to search for?")
+        elif intent == "TIME":
+
+            self.brain.speak_current_time()
+
+        elif intent=="DATE":
+
+            self.brain.speak_current_date()
+
+        elif intent == "DAY":
+
+            self.brain.speak_current_day()
+
 
         elif intent == "EXIT":
 

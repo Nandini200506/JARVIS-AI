@@ -6,6 +6,7 @@ from automation.app_launcher import launch_application
 from automation.website_launcher import launch_website
 from automation.file_launcher import open_folder as launch_folder
 from automation.search_launcher import search_google as launch_search
+from utils.time_manager import TimeManager
 
 class JarvisBrain:
     """
@@ -18,6 +19,7 @@ class JarvisBrain:
         self.weather = WeatherAPI()
         self.news = NewsAPI()
         self.desktop = DesktopAutomation()
+        self.time_manager = TimeManager()
 
     # ----------------------------
     # NEWS
@@ -131,7 +133,6 @@ class JarvisBrain:
 
             speak(f"Sorry, I couldn't open {website_name}")
         
-
     def open_folder(self, folder_name):
         """
         Opens a folder from the Smart File Launcher.
@@ -157,3 +158,30 @@ class JarvisBrain:
             else:
 
                 speak("Sorry, I couldn't perform the search.")
+    
+    def speak_current_time(self):
+        """
+        Speaks the current time.
+        """
+
+        current_time = self.time_manager.get_current_time()
+
+        speak(f"The current time is {current_time}") 
+
+    def speak_current_date(self):
+        """
+        Speaks the current date.
+        """
+
+        current_date = self.time_manager.get_current_date()
+
+        speak(f"Today's date is {current_date}")     
+
+    def speak_current_day(self):
+        """
+        Speaks the current day.
+        """
+
+        current_day = self.time_manager.get_current_day()
+
+        speak(f"Today is {current_day}")
