@@ -82,6 +82,23 @@ class CommandRouter:
 
             self.brain.speak_current_day()
 
+        elif intent == "VOLUME_UP":
+
+            print("JARVIS: Increasing volume")
+
+            self.brain.volume_up()
+
+        elif intent == "VOLUME_DOWN":
+
+            print("JARVIS: decreasing volume")
+
+            self.brain.volume_down()
+
+        elif intent == "MUTE":
+
+            print("JARVIS: Toggling mute")
+
+            self.brain.mute_volume()
 
         elif intent == "EXIT":
 

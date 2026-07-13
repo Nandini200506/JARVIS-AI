@@ -185,3 +185,30 @@ class JarvisBrain:
         current_day = self.time_manager.get_current_day()
 
         speak(f"Today is {current_day}")
+
+    def volume_up(self):
+        """
+        Increase the system volume.
+        """
+
+        speak("Increasing volume")
+
+        self.desktop.volume_up()
+
+    def volume_down(self):
+        """
+        decrease the system volume.
+        """
+
+        speak("Decreasing volume")
+
+        self.desktop.volume_down()
+
+    def mute_volume(self):
+        """
+        Toggle the system mute state.
+        """
+
+        speak("Muting the volume")
+
+        self.desktop.mute_volume()

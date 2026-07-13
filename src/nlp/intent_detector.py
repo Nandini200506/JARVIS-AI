@@ -74,6 +74,29 @@ class IntentDetector:
                 "which day is today",
                 "current day"
             ],
+            "VOLUME_UP": [
+                "increase volume",
+                "volume up",
+                "raise volume",
+                "increase sound",
+                "sound up"
+            ],
+            "VOLUME_DOWN": [
+                "decrease volume",
+                "volume down",
+                "down volume",
+                "decrease sound",
+                "sound down"
+            ],
+
+            "MUTE": [
+                "mute",
+                "mute volume",
+                "mute sound",
+                "turn off sound",
+                "turn off volume"
+            ],
+
             "EXIT": [
                 "exit",
                 "quit",
